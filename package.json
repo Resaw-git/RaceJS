@@ -1,7 +1,7 @@
 {
   "name": "first-project",
   "version": "1.0.0",
-  "description": "something about dota2",
+  "description": "racing on JS",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -15,8 +15,7 @@
   "keywords": [
     "js",
     "webpack",
-    "node",
-    "dota"
+    "node"
   ],
   "author": "Resaw",
   "license": "ISC",
@@ -32,5 +31,8 @@
     "style-loader": "^2.0.0",
     "webpack": "^5.40.0",
     "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "jshint": "^2.13.0"
   }
 }
