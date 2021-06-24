@@ -1,10 +1,15 @@
 'use strict';
-const score = document.querySelector('.score'),
+const bg = document.querySelector('.bg'),
+    content = document.querySelector('.content'),  
+    score = document.querySelector('.score'),
     start = document.querySelector('.start'),
+    settings = document.querySelector('.settings'),
+    exit = document.querySelector('.exit'),
     gameArea = document.querySelector('.gameArea'),
     car = document.createElement('div');
 
 car.classList.add('car');
+gameArea.classList.add('hide');
 
 const keys = {
     ArrowUp: false,
@@ -44,6 +49,7 @@ const moveEnemy = () => {
         if (item.y >= document.documentElement.clientHeight) {
             item.y = -100 * setting.traffic;
             item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth-50)) + 'px';
+            
         }
     });
 };
@@ -58,7 +64,7 @@ const playGame = () => {
         if (keys.ArrowRight && setting.x < (gameArea.offsetWidth - car.offsetWidth)) {
             setting.x+=setting.speed;
         }
-        if (keys.ArrowDown && setting.y < (gameArea.offsetWidth - car.offsetWidth)) {
+        if (keys.ArrowDown && setting.y < (gameArea.offsetHeight - car.offsetHeight)) {
             setting.y+=setting.speed;
         }
         if (keys.ArrowUp && setting.y > 0) {
@@ -71,7 +77,13 @@ const playGame = () => {
 };
 
 const startGame = () => {
+    bg.style.background = 'rgba(57, 143, 0, 0.8)';
+    bg.style.filter = 'blur(0px)';
+    content.style.background = 'rgba(0, 0, 0, 0.1)';
     start.classList.add('hide');
+    settings.classList.add('hide');
+    exit.classList.add('hide');
+    gameArea.classList.remove('hide');
 
     for (let i = 0; i < getQuantityElements(100); i++) {
         const line = document.createElement('div');
@@ -87,6 +99,7 @@ const startGame = () => {
         enemy.y = -100 * setting.traffic * (i + 1);
         enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth-50)) + 'px';
         enemy.style.top = enemy.y + 'px';
+        enemy.style.background = `transparent url('./src/images/enemy2.png') center / cover no-repeat`;
         gameArea.appendChild(enemy);
     }
 
