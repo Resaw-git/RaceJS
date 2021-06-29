@@ -68,7 +68,7 @@ table {
     font-weight: bold;
     padding: 25px;
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 400% 400%;
 	animation: animate_gradient 2s linear infinite;
@@ -90,21 +90,21 @@ table {
 .start:hover {
     background: green;
     animation: animate_reduce 2s infinite;
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .settings:hover {
     background: yellow;
     animation: animate_reduce 2s infinite;
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .exit:hover {
     background: red;
     animation: animate_reduce 2s infinite;
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -144,4 +144,19 @@ table {
     height: 50px;
     background: white;
     left: 145px;
+}
+
+.score {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 0;
+    z-index: 200;
+    font-size: 1.5rem;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 500;
+    text-align: center;
+    background: black;
 }

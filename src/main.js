@@ -1,14 +1,18 @@
 'use strict';
-const bg = document.querySelector('.bg'),
+
+const MAX_ENEMY = 7,
+    bg = document.querySelector('.bg'),
     content = document.querySelector('.content'),  
     score = document.querySelector('.score'),
     start = document.querySelector('.start'),
     settings = document.querySelector('.settings'),
     exit = document.querySelector('.exit'),
     gameArea = document.querySelector('.gameArea'),
-    car = document.createElement('div');
+    car = document.createElement('div'),
+    music = new Audio('./src/audio/main-theme.mp3');
 
 car.classList.add('car');
+score.classList.add('hide');
 gameArea.classList.add('hide');
 
 const keys = {
@@ -25,9 +29,12 @@ const setting = {
     traffic: 3
 };
 
-const getQuantityElements = (heightElement) => {
-    return document.documentElement.clientHeight / heightElement + 1;
-};
+music.play();
+
+const getQuantityElements = (heightElement) => 
+document.documentElement.clientHeight / heightElement + 1;
+
+const getRandomEnemy = (max) => Math.random() * max;
 
 
 const moveRoad = () => {
@@ -44,17 +51,27 @@ const moveRoad = () => {
 const moveEnemy = () => {
     let enemy = document.querySelectorAll('.enemy');
     enemy.forEach((item) => {
-        item.y += setting.speed;
+        let carRect = car.getBoundingClientRect();
+        let enemyRect = item.getBoundingClientRect();
+        if (carRect.top <= enemyRect.bottom &&
+            carRect.right >= enemyRect.left &&
+            carRect.left <= enemyRect.right &&
+            carRect.bottom >= enemyRect.top) {
+                setting.start = false;
+            }
+
+        item.y += setting.speed / 2;
         item.style.top = item.y + 'px';
         if (item.y >= document.documentElement.clientHeight) {
             item.y = -100 * setting.traffic;
-            item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth-50)) + 'px';
-            
+            item.style.left = Math.floor(Math.random() * (gameArea.offsetWidth-50)) + 'px'; 
         }
     });
 };
 
 const playGame = () => {
+    setting.score+= setting.speed;
+    score.textContent = 'score: ' + setting.score;
     moveRoad();
     moveEnemy();
     if (setting.start){
@@ -77,6 +94,8 @@ const playGame = () => {
 };
 
 const startGame = () => {
+    music.pause();
+    score.classList.remove('hide');
     bg.style.background = 'rgba(57, 143, 0, 0.8)';
     bg.style.filter = 'blur(0px)';
     content.style.background = 'rgba(0, 0, 0, 0.1)';
@@ -99,12 +118,20 @@ const startGame = () => {
         enemy.y = -100 * setting.traffic * (i + 1);
         enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth-50)) + 'px';
         enemy.style.top = enemy.y + 'px';
-        enemy.style.background = `transparent url('./src/images/enemy2.png') center / cover no-repeat`;
+        enemy.style.background = `
+        transparent 
+        url('./src/images/enemy${Math.floor(getRandomEnemy(MAX_ENEMY)) + 1}.png') 
+        center / cover 
+        no-repeat`;
         gameArea.appendChild(enemy);
     }
 
+    setting.score = 0;
     setting.start = true;
     gameArea.appendChild(car);
+    car.style.left = gameArea.offsetWidth / 2 - car.offsetWidth / 2;
+    car.style.top = 'auto';
+    car.style.bottom = '10px';
     setting.x = car.offsetLeft;
     setting.y = car.offsetTop;
     requestAnimationFrame(playGame);
@@ -114,7 +141,6 @@ const startGame = () => {
 const startRun = (event) => {
     event.preventDefault();
     keys[event.key] = true;
-
 };
 
 const stopRun = (event) => {
