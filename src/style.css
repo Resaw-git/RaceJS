@@ -59,7 +59,7 @@ table {
     height: 100vh;
 }
 
-.start, .settings, .exit {
+.start, .settings, .exit, .easy, .normal, .hard {
     z-index: 1;
     font-size: 100px;
     cursor: pointer;
@@ -69,6 +69,9 @@ table {
     padding: 25px;
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-clip: text;
+    border-style: none;
+    -webkit-background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
     background-size: 400% 400%;
 	animation: animate_gradient 2s linear infinite;
@@ -87,27 +90,32 @@ table {
 	100%{transform: scale3d(1.15, 1.15, 1.15);}
 }
 
-.start:hover {
+.start:hover, .easy:hover{
     background: green;
     animation: animate_reduce 2s infinite;
     background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
 }
 
-.settings:hover {
+.settings:hover, .normal:hover {
     background: yellow;
     animation: animate_reduce 2s infinite;
     background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
 }
 
-.exit:hover {
+.exit:hover, .hard:hover {
     background: red;
     animation: animate_reduce 2s infinite;
     background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
 }
-
 
 .game {
     margin-top: -100vh;
@@ -131,8 +139,7 @@ table {
 
 .gameArea {
     width: 300px;
-    height: 100vh;
-    position: relative;
+    position: fixed;
     margin: 0 auto;
     background: #222;
     overflow: hidden;
@@ -141,22 +148,34 @@ table {
 .line {
     position: absolute;
     width: 10px;
-    height: 50px;
     background: white;
     left: 145px;
 }
 
 .score {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem 0;
-    z-index: 200;
+    padding: 8px;
+    z-index: 1;
     font-size: 1.5rem;
     color: white;
     font-family: sans-serif;
-    font-weight: 500;
+    text-align: center;
+    background: black;
+}
+
+.stc {
+    position: fixed;
+    top: 93%;
+    left: 0;
+    width: 100%;
+    padding: 35px;
+    z-index: 1;
+    font-size: 1.5rem;
+    color: white;
+    font-family: sans-serif;
     text-align: center;
     background: black;
 }
